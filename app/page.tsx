@@ -6,15 +6,13 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get('redirectUrl');
+  const encodedRedirectUrl = searchParams.get('redirectUrl');
+  const redirectUrl = encodedRedirectUrl ? decodeURIComponent(encodedRedirectUrl) : null;
 
   useEffect(() => {
     if (redirectUrl) {
-      setLoading(true); // Show the overlay
-      // Delay the redirect by 2 seconds
-      setTimeout(() => {
-        router.push(redirectUrl);
-      }, 2000);
+      setLoading(true);
+      router.push(redirectUrl);
     }
   }, [redirectUrl, router]);
 
