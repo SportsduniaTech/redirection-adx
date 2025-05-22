@@ -1,18 +1,17 @@
 'use client'; // Make it a client component
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function HomePage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const encodedRedirectUrl = searchParams.get('redirectUrl');
   const redirectUrl = encodedRedirectUrl ? decodeURIComponent(encodedRedirectUrl) : null;
 
   useEffect(() => {
     if (redirectUrl) {
-      router.push(redirectUrl);
+      window.location.href = redirectUrl;
     }
-  }, [redirectUrl, router]);
+  }, [redirectUrl]);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-950 to-blue-800 text-white p-6 relative">
