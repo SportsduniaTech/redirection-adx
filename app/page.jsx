@@ -1,6 +1,9 @@
 import { redirect } from 'next/navigation';
 
-export default function HomePage({ searchParams }) {
+// Sleep function to create a delay
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+export default async function HomePage({ searchParams }) {
   const encodedRedirectUrl = searchParams?.redirectUrl;
 
   if (typeof encodedRedirectUrl === 'string' && encodedRedirectUrl.trim() !== '') {
@@ -17,6 +20,8 @@ export default function HomePage({ searchParams }) {
 
     // Redirect is outside the try-catch block
     if (decodedRedirectUrl) {
+      // Wait for 3.5 seconds before redirecting
+      await sleep(3500);
       redirect(decodedRedirectUrl); // This throws NEXT_REDIRECT, handled by Next.js
     }
   }
